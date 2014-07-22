@@ -420,38 +420,34 @@ function carHireController($scope) {
                 "message": "NO Credit card fees; NO Amendment & NO Cancellation fees; Freephone support. Book Now - Limited Special Offer!"
             }
         }
-
-
-
-    ];
-
+    ]
 }
 
 app.filter('myfilter', function() {
-   return function( results, carTypes, providers) {
-    debugger
+   return function( results, carTypes) {
+    console.log(carTypes)
     var filtered = [];
     var checkedTypeValues = [];
     var checkedProviderValues = [];
 
     // isolating checked values
-    for(var cKey in carTypes) {
-        if(carTypes.hasOwnProperty(cKey)) {
-            if(carTypes[cKey] === true) {
-                capitalizedKey = cKey.charAt(0).toUpperCase() + cKey.slice(1);
+    for(var k in carTypes) {
+        if(carTypes.hasOwnProperty(k)) {
+            if(carTypes[k] === true) {
+                capitalizedKey = k.charAt(0).toUpperCase() + k.slice(1);
                 checkedTypeValues.push(capitalizedKey);
             }
         }
     }
 
-    for(var pKey in providers) {
-        if(providers.hasOwnProperty(pKey)) {
-            if(providers[pKey] === true) {
-                capitalizedKey = pKey.charAt(0).toUpperCase() + pKey.slice(1);
-                checkedProviderValues.push(capitalizedKey);
-            }
-        }
-    }
+    // for(var k in providers) {
+    //     if(providers.hasOwnProperty(k)) {
+    //         if(providers[k] === true) {
+    //             capitalizedKey = k.charAt(0).toUpperCase() + k.slice(1);
+    //             checkedProviderValues.push(capitalizedKey);
+    //         }
+    //     }
+    // }
     angular.forEach(results, function(result) {
        if( carTypes.any === true || (carTypes.premium === false && carTypes.intermediate === false && carTypes.mini === false) ) {
           filtered.push(result);
@@ -463,46 +459,3 @@ app.filter('myfilter', function() {
     return filtered;
   };
 });
-
-
-
-// var app = angular.module('clientApp', ['ngResource', 'App.filters']);
-
-// function MainController($scope) {
-
-//     $scope.player_genders = {female: false, male:false};;
-//     $scope.player_name = "";
-//     $scope.player_age = "";
-
-//     $scope.players = [
-//         {"name": "Rod Laver",
-//             "gender": "female",
-//             "date": "1938/8/9",
-//             "imageUrl": "img/rod-laver.gif",
-//             "age": 75},
-//         {"name": "Boris Becker",
-//             "gender": "male",
-//             "date": "1967/11/22",
-//             "imageUrl": "img/boris-becker.gif",
-//             "age": 45},
-//         {"name": "John McEnroe",
-//             "gender": "male",
-//             "date": "1959/2/16",
-//             "imageUrl": "img/john-mc-enroe.gif",
-//             "age": 54},
-//         {"name": "Rafa Nadal",
-//             "gender": "female",
-//             "date": "1986/5/24",
-//             "imageUrl": "img/ndl.jpg",
-//             "age": 27}
-//     ]
-
-//     app.filter('myfilter', function() {
-//     return function(items, options ) {
-//       // loop over all the options and if true ensure the car has them
-//       // I cant do this for you beacause I don't know how you would store this info in the car object but it should not be difficult
-//       return carMatches;
-//     };
-// });
-// }
-

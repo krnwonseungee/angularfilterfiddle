@@ -10,7 +10,7 @@
 
     <section id="car-hire-results">
 
-        <article data-ng-repeat="result in results | filter:search | myfilter: carTypes | myfilter: providers " class="result">
+        <article data-ng-repeat="result in results | filter:search | myfilter: carTypes | myfilter:providers" class="result">
                     <header><h3>{{result.carType.name}}, {{result.carDetails.doors}} door, &pound;{{result.price.value}} - {{ result.company.name }}</h3></header>
                     <ul class="result-features">
                         <li>{{result.carDetails.hireDuration}} day hire</li>
@@ -59,7 +59,7 @@
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js"></script>
-    <script src="app.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="app.js"></script>
     </body>
 </html>
