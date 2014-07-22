@@ -429,9 +429,11 @@ function carHireController($scope) {
 
 app.filter('myfilter', function() {
    return function( results, carTypes, providers) {
+    debugger
     var filtered = [];
     var checkedTypeValues = [];
     var checkedProviderValues = [];
+
     // isolating checked values
     for(var cKey in carTypes) {
         if(carTypes.hasOwnProperty(cKey)) {
@@ -450,8 +452,6 @@ app.filter('myfilter', function() {
             }
         }
     }
-    console.log(checkedTypeValues);
-    console.log(checkedProviderValues);
     angular.forEach(results, function(result) {
        if( carTypes.any === true || (carTypes.premium === false && carTypes.intermediate === false && carTypes.mini === false) ) {
           filtered.push(result);
