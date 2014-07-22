@@ -425,7 +425,7 @@ function carHireController($scope) {
 
 app.filter('myfilter', function() {
    return function( results, carTypes, providers) {
-    debugger
+    // debugger
     var filtered = [];
     var checkedTypeValues = [];
     var checkedProviderValues = [];
@@ -434,28 +434,43 @@ app.filter('myfilter', function() {
     for(var k in carTypes) {
         if(carTypes.hasOwnProperty(k)) {
             if(carTypes[k] === true) {
-                capitalizedKey = k.charAt(0).toUpperCase() + k.slice(1);
-                checkedTypeValues.push(capitalizedKey);
+                if(k == "any"){
+                    checkedTypeValues.push("anytype");
+                }
+                else{
+                    capitalizedKey = k.charAt(0).toUpperCase() + k.slice(1);
+                    checkedTypeValues.push(capitalizedKey);
+                }
             }
         }
     }
 
-    // for(var k in providers) {
-    //     if(providers.hasOwnProperty(k)) {
-    //         if(providers[k] === true) {
-    //             capitalizedKey = k.charAt(0).toUpperCase() + k.slice(1);
-    //             checkedProviderValues.push(capitalizedKey);
-    //         }
-    //     }
-    // }
-    angular.forEach(results, function(result) {
-       if( carTypes.any === true || (carTypes.premium === false && carTypes.intermediate === false && carTypes.mini === false) ) {
-          filtered.push(result);
+    for(var k in providers) {
+        if(providers.hasOwnProperty(k)) {
+            if(providers[k] === true) {
+                if(k == 'atlasChoice'){
+                    checkedTypeValues.push('Atlas Choice');
+                }
+                else if(k == 'holidayAutos'){
+                    checkedTypeValues.push('Holiday Autos');
+                }
+                else if(k == 'avis'){
+                    checkedTypeValues.push('Avis');
+                }
+                else if(k == 'any'){
+                    checkedTypeValues.push('anyprovider');
+                }
+            }
         }
-        else if( $.inArray(result.carType.name, checkedTypeValues) != -1 ){
+    }
+
+    console.log(checkedTypeValues)
+    angular.forEach(results, function(result) {
+       if( ( $.inArray("anytype", checkedTypeValues) != -1 || $.inArray(result.carType.name, checkedTypeValues) != -1 ) && ( $.inArray("anyprovider", checkedTypeValues) != -1 || $.inArray(result.company.name, checkedTypeValues) != -1 ) ){
             filtered.push(result);
         }
     });
+    console.log(filtered)
     return filtered;
   };
 });
