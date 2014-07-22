@@ -420,12 +420,12 @@ function carHireController($scope) {
                 "message": "NO Credit card fees; NO Amendment & NO Cancellation fees; Freephone support. Book Now - Limited Special Offer!"
             }
         }
-    ]
+    ];
 }
 
 app.filter('myfilter', function() {
-   return function( results, carTypes) {
-    console.log(carTypes)
+   return function( results, carTypes, providers) {
+    debugger
     var filtered = [];
     var checkedTypeValues = [];
     var checkedProviderValues = [];
