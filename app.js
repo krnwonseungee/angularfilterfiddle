@@ -429,14 +429,11 @@ app.filter('myfilter', function() {
     var filtered = [];
     var checkedTypeValues = [];
     var checkedProviderValues = [];
-    var noTypeChecked = true;
-    var noProviderChecked = true;
 
     // isolating checked values
     for(var k in carTypes) {
         if(carTypes.hasOwnProperty(k)) {
             if(carTypes[k] === true) {
-                noTypechecked = false;
                 if(k == "any"){
                     checkedTypeValues.push("anytype");
                 }
@@ -451,7 +448,6 @@ app.filter('myfilter', function() {
     for(var k in providers) {
         if(providers.hasOwnProperty(k)) {
             if(providers[k] === true) {
-                var noProviderChecked = false;
                 if(k == 'atlasChoice'){
                     checkedTypeValues.push('Atlas Choice');
                 }
@@ -467,14 +463,15 @@ app.filter('myfilter', function() {
             }
         }
     }
-
+    console.log(a = carTypes);
+    console.log(providers);
     console.log(checkedTypeValues);
     angular.forEach(results, function(result) {
-       if( ( $.inArray("anytype", checkedTypeValues) != -1 || $.inArray(result.carType.name, checkedTypeValues) != -1 ) && ( $.inArray("anyprovider", checkedTypeValues) != -1 || $.inArray(result.company.name, checkedTypeValues) != -1  ) ){
+       if( ( $.inArray("anytype", checkedTypeValues) != -1 || $.inArray(result.carType.name, checkedTypeValues) != -1 || _.find(carTypes, function(x){return x == true }) == undefined ) && ( $.inArray("anyprovider", checkedTypeValues) != -1 || $.inArray(result.company.name, checkedTypeValues) != -1 || _.find(providers, function(x){return x == true }) == undefined ) ){
             filtered.push(result);
         }
     });
-    console.log(filtered)
+    console.log(filtered);
     return filtered;
   };
 });
