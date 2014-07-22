@@ -430,31 +430,33 @@ function carHireController($scope) {
 app.filter('myfilter', function() {
    return function( results, carTypes, providers) {
     var filtered = [];
-    var checkedValues = [];
+    var checkedTypeValues = [];
+    var checkedProviderValues = [];
     // isolating checked values
-    for(var k in carTypes) {
-        if(carTypes.hasOwnProperty(k)) {
-            if(carTypes[k] === true) {
-                capitalizedKey = k.charAt(0).toUpperCase() + k.slice(1);
-                checkedValues.push(capitalizedKey);
+    for(var cKey in carTypes) {
+        if(carTypes.hasOwnProperty(cKey)) {
+            if(carTypes[cKey] === true) {
+                capitalizedKey = cKey.charAt(0).toUpperCase() + cKey.slice(1);
+                checkedTypeValues.push(capitalizedKey);
             }
         }
     }
 
-    for(var k in providers) {
-        if(providers.hasOwnProperty(k)) {
-            if(providers[k] === true) {
-                capitalizedKey = k.charAt(0).toUpperCase() + k.slice(1);
-                checkedValues.push(capitalizedKey);
+    for(var pKey in providers) {
+        if(providers.hasOwnProperty(pKey)) {
+            if(providers[pKey] === true) {
+                capitalizedKey = pKey.charAt(0).toUpperCase() + pKey.slice(1);
+                checkedProviderValues.push(capitalizedKey);
             }
         }
     }
-    console.log(checkedValues)
+    console.log(checkedTypeValues);
+    console.log(checkedProviderValues);
     angular.forEach(results, function(result) {
-       if( carTypes.any == true || (carTypes.premium == false && carTypes.intermediate == false && carTypes.mini == false) ) {
+       if( carTypes.any === true || (carTypes.premium === false && carTypes.intermediate === false && carTypes.mini === false) ) {
           filtered.push(result);
         }
-        else if( $.inArray(result.carType.name, checkedValues) != -1 && $.inArray(result.carType.name, checkedValues) != -1 ){
+        else if( $.inArray(result.carType.name, checkedTypeValues) != -1 ){
             filtered.push(result);
         }
     });
